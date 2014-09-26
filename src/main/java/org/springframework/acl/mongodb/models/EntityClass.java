@@ -1,8 +1,5 @@
 package org.springframework.acl.mongodb.models;
 
-import org.springframework.data.mongodb.core.mapping.Document;
-
-@Document(collection = "acl.entity.class")
 public class EntityClass extends CRUDBase {
     private String className;
 

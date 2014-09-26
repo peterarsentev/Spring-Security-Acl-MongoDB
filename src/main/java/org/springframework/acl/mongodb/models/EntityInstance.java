@@ -9,6 +9,17 @@ public class EntityInstance extends CRUDBase {
     private EntityClass entityClass;
     private String instanceId;
 
+    @DBRef
+    private Role role;
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
     public EntityClass getEntityClass() {
         return entityClass;
     }
