@@ -1,0 +1,22 @@
+package ru.mongo.acl.models;
+
+import org.springframework.acl.mongodb.models.Base;
+
+public class Client extends Base {
+
+    private String login;
+
+    public Client() {}
+
+    public Client(String id) {
+        this.setId(id);
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+}
