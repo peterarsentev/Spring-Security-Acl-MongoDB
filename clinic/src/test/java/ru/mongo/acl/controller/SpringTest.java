@@ -1,4 +1,4 @@
-package ru.mongo.acl.tools;
+package ru.mongo.acl.controller;
 
 import org.junit.Before;
 import org.junit.runner.RunWith;
@@ -22,7 +22,7 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:security-context.xml", "classpath:servlet-context.xml"})
 @WebAppConfiguration
-public class SpringTest {
+public abstract class SpringTest {
     public static final MediaType APPLICATION_JSON_UTF8 = new MediaType(MediaType.APPLICATION_JSON.getType(), MediaType.APPLICATION_JSON.getSubtype(), Charset.forName("utf8"));
 
     protected MockMvc mockMvc;
@@ -33,6 +33,9 @@ public class SpringTest {
     @Autowired
     private Filter springSecurityFilterChain;
 
+    abstract String getLogin();
+    abstract String getPassword();
+
     /**
      * This method initializes the mock objects
      */
@@ -40,7 +43,7 @@ public class SpringTest {
     public void setUp() {
         mockMvc = MockMvcBuilders
                 .webAppContextSetup(context)
-                .defaultRequest(get("/").with(authentication(new UsernamePasswordAuthenticationToken("admin", "password"))))
+                .defaultRequest(get("/").with(authentication(new UsernamePasswordAuthenticationToken(this.getLogin(), this.getPassword()))))
                 .addFilters(springSecurityFilterChain)
                 .build();
     }
