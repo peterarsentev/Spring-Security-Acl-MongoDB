@@ -16,7 +16,7 @@ public class MongoDBPermissionEvaluator implements PermissionEvaluator {
     public MongoDBPermissionEvaluator(MongoTemplate template, Collection<IRule> rules) {
         this.template = template;
         for (IRule rule : rules) {
-            this.rules.put(rule.getKye(), rule);
+            this.rules.put(rule.getKey(), rule);
         }
     }
 

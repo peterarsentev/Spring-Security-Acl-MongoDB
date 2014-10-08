@@ -1,14 +1,14 @@
 package org.springframework.acl.mongodb.rules;
 
-public class CreatePermission extends CRUDBase implements IRule {
+public class DeletePermission extends CRUDBase implements IRule {
 
     @Override
     public String getKey() {
-        return "create";
+        return "delete";
     }
 
     @Override
     Can getCanField() {
-        return Can.CREATE;
+        return Can.DELETE;
     }
 }

@@ -19,6 +19,9 @@
         <beans:constructor-arg name="rules">
             <beans:list>
                 <beans:bean class="org.springframework.acl.mongodb.rules.CreatePermission"/>
+                <beans:bean class="org.springframework.acl.mongodb.rules.ReadPermission"/>
+                <beans:bean class="org.springframework.acl.mongodb.rules.UpdatePermission"/>
+                <beans:bean class="org.springframework.acl.mongodb.rules.DeletePermission"/>
             </beans:list>
         </beans:constructor-arg>
     </beans:bean>
