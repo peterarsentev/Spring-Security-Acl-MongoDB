@@ -14,7 +14,14 @@
         <expression-handler ref="expressionHandler" />
     </global-method-security>
 
-    <beans:bean id="permissionEvaluator" class="org.springframework.acl.mongodb.rules.MongoDBPermissionEvaluator"/>
+    <beans:bean id="permissionEvaluator" class="org.springframework.acl.mongodb.rules.MongoDBPermissionEvaluator">
+        <beans:constructor-arg ref="mongoTemplate"/>
+        <beans:constructor-arg name="rules">
+            <beans:list>
+                <beans:bean class="org.springframework.acl.mongodb.rules.CreatePermission"/>
+            </beans:list>
+        </beans:constructor-arg>
+    </beans:bean>
 
     <beans:bean id="expressionHandler" class="org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler"
                 p:permissionEvaluator-ref="permissionEvaluator"/>

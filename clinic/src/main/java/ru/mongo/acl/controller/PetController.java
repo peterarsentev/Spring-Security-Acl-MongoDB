@@ -20,7 +20,7 @@ public class PetController {
     private PetRepository petRepository;
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
-    @PreAuthorize("hasPermission(null, {'create'})")
+    @PreAuthorize("hasPermission(#pet, {'create'})")
     public Pet create(Pet pet) {
         return this.petRepository.save(pet);
     }
