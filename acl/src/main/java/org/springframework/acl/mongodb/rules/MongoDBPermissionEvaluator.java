@@ -33,7 +33,7 @@ public class MongoDBPermissionEvaluator implements PermissionEvaluator {
                 break;
             }
         }
-        return result;
+        return true;
     }
 
     @Override

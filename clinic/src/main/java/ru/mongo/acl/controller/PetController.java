@@ -22,6 +22,9 @@ public class PetController {
     @Autowired
     private PetRepository petRepository;
 
+    @Autowired
+    private PetService petService;
+
     @RequestMapping(value = "/", method = RequestMethod.POST)
     @PreAuthorize("hasPermission(#pet, {'create'})")
     public Pet create(Pet pet) {
@@ -43,7 +46,7 @@ public class PetController {
     @RequestMapping(value = "/list/{clientId}", method = RequestMethod.GET)
     @PostFilter("hasPermission(filterObject, {'read'})")
     public List<Pet> getByOwner(@PathVariable String clientId) {
-        return  new ArrayList<Pet>();//this.petRepository.findByOwner(new Client(clientId));
+        return this.petService.findByOwner(clientId);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)

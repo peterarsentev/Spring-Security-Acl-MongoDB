@@ -8,6 +8,15 @@ public class Pet extends Base {
     private String name;
     private Client owner;
 
+    public Pet() {
+
+    }
+
+    public Pet(String id) {
+        this.setId(id);
+    }
+
+
     public Client getOwner() {
         return owner;
     }
@@ -23,4 +32,5 @@ public class Pet extends Base {
     public void setName(String name) {
         this.name = name;
     }
+
 }
