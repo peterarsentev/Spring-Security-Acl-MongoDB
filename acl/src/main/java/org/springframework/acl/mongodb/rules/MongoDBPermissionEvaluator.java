@@ -1,5 +1,6 @@
 package org.springframework.acl.mongodb.rules;
 
+import org.slf4j.Logger;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.security.access.PermissionEvaluator;
 import org.springframework.security.core.Authentication;
@@ -8,6 +9,7 @@ import java.io.Serializable;
 import java.util.*;
 
 public class MongoDBPermissionEvaluator implements PermissionEvaluator {
+    private static final Logger LOGGER = org.slf4j.LoggerFactory.getLogger(MongoDBPermissionEvaluator.class);
 
     private final MongoTemplate template;
 
@@ -23,6 +25,7 @@ public class MongoDBPermissionEvaluator implements PermissionEvaluator {
     @SuppressWarnings("unchecked")
     @Override
     public boolean hasPermission(Authentication authentication, Object target, Object permission) {
+        LOGGER.error("{} {} {}", authentication, target, permission);
         boolean result = false;
         for (String key : (Collection<String>) permission) {
             result = this.rules.get(key).process(template, authentication.getName(), target);
@@ -35,6 +38,7 @@ public class MongoDBPermissionEvaluator implements PermissionEvaluator {
 
     @Override
     public boolean hasPermission(Authentication authentication, Serializable serializable, String s, Object o) {
+        LOGGER.error("{} {} {} {}", authentication, serializable, s, o);
         return false;
     }
 }

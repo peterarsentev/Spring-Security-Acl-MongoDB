@@ -26,7 +26,8 @@
         </beans:constructor-arg>
     </beans:bean>
 
-    <beans:bean id="expressionHandler" class="org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler"
+    <beans:bean id="expressionHandler"
+                class="org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler"
                 p:permissionEvaluator-ref="permissionEvaluator"/>
 
 

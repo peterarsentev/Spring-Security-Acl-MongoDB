@@ -1,6 +1,8 @@
 package ru.mongo.acl.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.security.access.prepost.PostFilter;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,6 +12,7 @@ import ru.mongo.acl.models.Client;
 import ru.mongo.acl.models.Pet;
 import ru.mongo.acl.repositories.PetRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -37,15 +40,15 @@ public class PetController {
         this.petRepository.delete(pet);
     }
 
-    @RequestMapping(value = "/{clientId}", method = RequestMethod.GET)
-    @PreAuthorize("hasPermission(filterObject, {'read'})")
+    @RequestMapping(value = "/list/{clientId}", method = RequestMethod.GET)
+    @PostFilter("hasPermission(filterObject, {'read'})")
     public List<Pet> getByOwner(@PathVariable String clientId) {
-        return this.petRepository.findByOwner(new Client(clientId));
+        return  new ArrayList<Pet>();//this.petRepository.findByOwner(new Client(clientId));
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.POST)
-    @PreAuthorize("hasPermission(null, {'create'})")
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @PostAuthorize("hasPermission(returnObject, {'read'})")
     public Pet geById(@PathVariable String id) {
-        return this.petRepository.findOne(id);
+        return new Pet();//this.petRepository.findOne(id);
     }
 }
