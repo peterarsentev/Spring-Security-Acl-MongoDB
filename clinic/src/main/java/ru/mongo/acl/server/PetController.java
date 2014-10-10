@@ -1,4 +1,4 @@
-package ru.mongo.acl.controller;
+package ru.mongo.acl.server;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PostAuthorize;
@@ -8,11 +8,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import ru.mongo.acl.models.Client;
-import ru.mongo.acl.models.Pet;
-import ru.mongo.acl.repositories.PetRepository;
+import ru.mongo.acl.shared.models.Client;
+import ru.mongo.acl.shared.models.Pet;
+import ru.mongo.acl.server.repositories.PetRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController

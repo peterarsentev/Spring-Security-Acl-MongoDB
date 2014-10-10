@@ -49,7 +49,7 @@
         <beans:constructor-arg name="mongoDbFactory" ref="mongoDbFactory" />
     </beans:bean>
 
-    <mongo:repositories base-package="ru.mongo.acl.repositories" />
+    <mongo:repositories base-package="ru.mongo.acl.server.repositories" />
 
     <context:component-scan base-package="ru.mongo.acl" />
 

@@ -1,0 +1,11 @@
+body {
+    text-align: center;
+    font-family: verdana, sans-serif;
+    width:100%;
+}
+
+#gwtContainer {
+    padding: 10px;
+    width: 100%;
+    text-align: center;
+}

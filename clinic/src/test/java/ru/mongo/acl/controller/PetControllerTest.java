@@ -2,7 +2,7 @@ package ru.mongo.acl.controller;
 
 import org.junit.Ignore;
 import org.junit.Test;
-import ru.mongo.acl.models.Pet;
+import ru.mongo.acl.shared.models.Pet;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;

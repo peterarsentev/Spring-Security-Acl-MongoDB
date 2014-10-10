@@ -12,6 +12,7 @@
         <spring.security.version>3.2.5.RELEASE</spring.security.version>
         <webappDirectory>${project.build.directory}/${project.build.finalName}</webappDirectory>
         <jettyVersion>9.0.2.v20130417</jettyVersion>
+        <gwtVersion>2.6.1</gwtVersion>
     </properties>
 
     <repositories>
@@ -22,6 +23,19 @@
     </repositories>
 
     <dependencies>
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20140107</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.gwt</groupId>
+            <artifactId>gwt-user</artifactId>
+            <version>${gwtVersion}</version>
+            <scope>provided</scope>
+        </dependency>
+
         <dependency>
             <groupId>org.springframework.acl.mongodb</groupId>
             <artifactId>spring.acl.mongodb</artifactId>
@@ -157,6 +171,29 @@
         <outputDirectory>${webappDirectory}/WEB-INF/classes</outputDirectory>
 
         <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>gwt-maven-plugin</artifactId>
+                <version>${gwtVersion}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>compile</goal>
+                            <goal>test</goal>
+                            <goal>i18n</goal>
+                            <goal>generateAsync</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <!-- Plugin configuration. There are many available options, see
+                  gwt-maven-plugin documentation at codehaus.org -->
+                <configuration>
+                    <runTarget>action.html</runTarget>
+                    <hostedWebapp>${webappDirectory}</hostedWebapp>
+                    <i18nMessagesBundle>parsentev.client.Messages</i18nMessagesBundle>
+                </configuration>
+            </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>

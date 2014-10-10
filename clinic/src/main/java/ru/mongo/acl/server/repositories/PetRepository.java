@@ -1,10 +1,9 @@
-package ru.mongo.acl.repositories;
+package ru.mongo.acl.server.repositories;
 
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.security.access.prepost.PostFilter;
 import org.springframework.stereotype.Repository;
-import ru.mongo.acl.models.Client;
-import ru.mongo.acl.models.Pet;
+import ru.mongo.acl.shared.models.Client;
+import ru.mongo.acl.shared.models.Pet;
 
 import java.util.List;
 
