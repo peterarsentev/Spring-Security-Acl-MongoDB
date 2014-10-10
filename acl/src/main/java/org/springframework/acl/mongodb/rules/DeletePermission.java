@@ -1,6 +1,6 @@
 package org.springframework.acl.mongodb.rules;
 
-public class DeletePermission extends CRUDBase implements IRule {
+public class DeletePermission extends CRUDRule implements IRule {
 
     @Override
     public String getKey() {

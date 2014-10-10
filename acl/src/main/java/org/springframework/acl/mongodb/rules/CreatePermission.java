@@ -1,6 +1,6 @@
 package org.springframework.acl.mongodb.rules;
 
-public class CreatePermission extends CRUDBase implements IRule {
+public class CreatePermission extends CRUDRule implements IRule {
 
     @Override
     public String getKey() {

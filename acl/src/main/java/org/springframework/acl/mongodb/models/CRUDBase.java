@@ -1,10 +1,19 @@
 package org.springframework.acl.mongodb.models;
 
-public abstract class CRUDBase extends Base {
+public abstract class CRUDBase {
+    private String className;
     private boolean canCreate;
     private boolean canRead;
     private boolean canUpdate;
     private boolean canDelete;
+
+    public String getClassName() {
+        return className;
+    }
+
+    public void setClassName(String className) {
+        this.className = className;
+    }
 
     public boolean isCanCreate() {
         return canCreate;
