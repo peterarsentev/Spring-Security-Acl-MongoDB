@@ -32,7 +32,7 @@
 
 
     <http auto-config="true" use-expressions="true">
-        <intercept-url pattern="/api**" access="isAuthenticated" />
+        <intercept-url pattern="/api**" access="isAuthenticated()" />
     </http>
 
     <authentication-manager>

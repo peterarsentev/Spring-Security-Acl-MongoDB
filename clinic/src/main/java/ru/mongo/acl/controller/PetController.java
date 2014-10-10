@@ -22,36 +22,33 @@ public class PetController {
     @Autowired
     private PetRepository petRepository;
 
-    @Autowired
-    private PetService petService;
-
     @RequestMapping(value = "/", method = RequestMethod.POST)
-    @PreAuthorize("hasPermission(#pet, {'create'})")
+    @PreAuthorize("hasPermission(#pet, 'create')")
     public Pet create(Pet pet) {
         return this.petRepository.save(pet);
     }
 
     @RequestMapping(value = "/", method = RequestMethod.PUT)
-    @PreAuthorize("hasPermission(#pet, {'create'})")
+    @PreAuthorize("hasPermission(#pet, 'update')")
     public Pet update(Pet pet) {
         return this.petRepository.save(pet);
     }
 
     @RequestMapping(value = "/", method = RequestMethod.DELETE)
-    @PreAuthorize("hasPermission(#pet, {'create'})")
+    @PreAuthorize("hasPermission(#pet, 'delete')")
     public void delete(Pet pet) {
         this.petRepository.delete(pet);
     }
 
     @RequestMapping(value = "/list/{clientId}", method = RequestMethod.GET)
-    @PostFilter("hasPermission(filterObject, {'read'})")
+    @PostFilter("hasPermission(filterObject, 'read')")
     public List<Pet> getByOwner(@PathVariable String clientId) {
-        return this.petService.findByOwner(clientId);
+        return this.petRepository.findByOwner(new Client(clientId));
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    @PostAuthorize("hasPermission(returnObject, {'read'})")
+    @PostAuthorize("hasPermission(returnObject, 'read')")
     public Pet geById(@PathVariable String id) {
-        return new Pet();//this.petRepository.findOne(id);
+        return this.petRepository.findOne(id);
     }
 }

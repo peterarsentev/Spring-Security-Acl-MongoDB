@@ -22,7 +22,9 @@ public abstract class CRUDRule implements IRule {
         } else {
             query = format(QUERY_TEMPLATE_CLASS, aclKey, base.getClass().getName(), this.getCanField().getKey());
         }
-        LOGGER.info("query : {}", query);
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("query : {}", query);
+        }
         return template.exists(new BasicQuery(query), Acl.class);
     }
 }

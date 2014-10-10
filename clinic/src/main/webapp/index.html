@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="js/jquery-1.11.1.min.js"></script>
+    <script src="js/jquery-ui-1.11.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="js/jquery-ui-1.11.1/jquery-ui.css">
+    <script>
+        $(function() {
+            $( "#dialog" ).dialog();
+        });
+    </script>
+</head>
+<body>
+<div id="dialog" title="Authorization">
+    <div>
+        <table>
+            <tr><td><label>Login:</label></td><td><input type="text" name="login"></td></tr>
+            <tr><td><label>Password:</label></td><td><input type="password" name="password"></td></tr>
+            <tr><td colspan="2"><input type="button" value="submit"></td></tr>
+        </table>
+    </div>
+</div>
+</body>
+</html>
