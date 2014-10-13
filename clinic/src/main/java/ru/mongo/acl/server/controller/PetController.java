@@ -1,4 +1,4 @@
-package ru.mongo.acl.server;
+package ru.mongo.acl.server.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PostAuthorize;
@@ -16,37 +16,32 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/pet")
-public class PetController {
+public class PetController implements IGRUDController<Pet> {
 
     @Autowired
     private PetRepository petRepository;
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
-    @PreAuthorize("hasPermission(#pet, 'create')")
     public Pet create(Pet pet) {
         return this.petRepository.save(pet);
     }
 
     @RequestMapping(value = "/", method = RequestMethod.PUT)
-    @PreAuthorize("hasPermission(#pet, 'update')")
     public Pet update(Pet pet) {
         return this.petRepository.save(pet);
     }
 
     @RequestMapping(value = "/", method = RequestMethod.DELETE)
-    @PreAuthorize("hasPermission(#pet, 'delete')")
     public void delete(Pet pet) {
         this.petRepository.delete(pet);
     }
 
     @RequestMapping(value = "/list/{clientId}", method = RequestMethod.GET)
-    @PostFilter("hasPermission(filterObject, 'read')")
     public List<Pet> getByOwner(@PathVariable String clientId) {
         return this.petRepository.findByOwner(new Client(clientId));
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    @PostAuthorize("hasPermission(returnObject, 'read')")
     public Pet geById(@PathVariable String id) {
         return this.petRepository.findOne(id);
     }
