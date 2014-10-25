@@ -2,6 +2,7 @@ package ru.mongo.acl.shared.models;
 
 import org.springframework.acl.mongodb.models.Base;
 import org.springframework.data.mongodb.core.mapping.Document;
+import ru.mongo.acl.server.models.Client;
 
 @Document(collection = "pet")
 public class Pet extends Base {

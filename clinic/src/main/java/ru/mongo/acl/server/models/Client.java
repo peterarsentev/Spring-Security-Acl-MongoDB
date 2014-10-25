@@ -1,4 +1,4 @@
-package ru.mongo.acl.shared.models;
+package ru.mongo.acl.server.models;
 
 import org.springframework.acl.mongodb.models.Base;
 
