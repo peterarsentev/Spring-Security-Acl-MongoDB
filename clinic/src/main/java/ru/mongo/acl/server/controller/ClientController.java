@@ -2,6 +2,7 @@ package ru.mongo.acl.server.controller;
 
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.mongo.acl.server.repositories.ClientRepository;
@@ -20,18 +21,19 @@ public class ClientController implements ICRUDController<Client> {
     private ClientRepository clientRepository;
 
     @Override
-    public Client create(Client client) {
+    public Client create(@RequestBody Client client) {
         LOGGER.error("Create {}", client);
+        client.setId(null);
         return this.clientRepository.save(client);
     }
 
     @Override
-    public Client update(Client client) {
+    public Client update(@RequestBody Client client) {
         return this.clientRepository.save(client);
     }
 
     @Override
-    public void delete(Client client) {
+    public void delete(@RequestBody Client client) {
         this.clientRepository.delete(client);
     }
 

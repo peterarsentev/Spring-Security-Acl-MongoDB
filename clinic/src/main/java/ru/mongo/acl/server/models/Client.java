@@ -19,4 +19,11 @@ public class Client extends Base {
     public void setLogin(String login) {
         this.login = login;
     }
+
+    @Override
+    public String toString() {
+        return "Client{" +
+                "login='" + login + '\'' +
+                '}';
+    }
 }

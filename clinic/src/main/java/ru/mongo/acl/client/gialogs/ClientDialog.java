@@ -34,23 +34,18 @@ public class ClientDialog extends DialogBox {
             public void onClick(ClickEvent clickEvent) {
                 final IClientDTO client = new ClientDTO();
                 client.setLogin(login.getText());
-                RequestBuilder builder = new RequestBuilder(RequestBuilder.POST, "api/client/") {
-                    @Override
-                    public Request sendRequest(String requestData, RequestCallback callback) throws RequestException {
-                        requestData = client.toString();//AutoBeanCodex.encode(AutoBeanUtils.getAutoBean(client)).getPayload();
-                        return super.sendRequest(requestData, callback);
-                    }
-                };
 
+                RequestBuilder builder = new RequestBuilder(RequestBuilder.POST, "api/client/");
+                builder.setHeader("Content-Type", "application/json");
                 try {
-                    builder.sendRequest(null, new RequestCallback() {
-                        public void onError(Request request, Throwable exception) {
-                            GWT.log("error");
-                        }
-
+                    builder.sendRequest(client.toString(), new RequestCallback() {
                         public void onResponseReceived(Request request, Response response) {
                             ClientPage.getInstance().addClient(client);
                             hide();
+                        }
+
+                        @Override
+                        public void onError(Request request, Throwable throwable) {
                         }
                     });
                 } catch (RequestException e) {
@@ -73,5 +68,6 @@ public class ClientDialog extends DialogBox {
         layout.setWidget(1, 0, submit);
         layout.setWidget(1, 1, cancel);
         this.add(layout);
+        this.center();
     }
 }

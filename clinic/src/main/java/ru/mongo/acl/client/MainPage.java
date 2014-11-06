@@ -19,4 +19,5 @@ public class MainPage implements EntryPoint {
     public void onModuleLoad() {
         LoginPage.getInstance();
     }
+
 }

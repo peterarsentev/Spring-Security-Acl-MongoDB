@@ -1,11 +1,23 @@
 body {
-    text-align: center;
-    font-family: verdana, sans-serif;
-    width:100%;
+    text-align:center;
 }
 
-#gwtContainer {
-    padding: 10px;
+.center {
     width: 100%;
-    text-align: center;
+    text-align: center !important;
+    margin: 10px 10px 10px 10px;
+}
+
+
+table {
+    margin-left:auto;
+    margin-right:auto;
+}
+
+table.border table {
+    border: 1px solid black;
+}
+
+table.border td {
+    border: 1px solid black;
 }

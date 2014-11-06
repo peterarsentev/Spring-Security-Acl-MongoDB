@@ -51,13 +51,7 @@ public class LoginPage extends SimplePanel {
         button.addClickHandler(new ClickHandler() {
             @Override
             public void onClick(ClickEvent clickEvent) {
-                RequestBuilder builder = new RequestBuilder(RequestBuilder.POST, "j_spring_security_check?j_username=admin&j_password=password") {
-                    @Override
-                    public Request sendRequest(String requestData, RequestCallback callback) throws RequestException {
-                        return super.sendRequest(requestData, callback);
-                    }
-                };
-
+                RequestBuilder builder = new RequestBuilder(RequestBuilder.POST, "j_spring_security_check?j_username=admin&j_password=password");
                 try {
                     builder.sendRequest(null, new RequestCallback() {
                         public void onError(Request request, Throwable exception) {
@@ -66,7 +60,7 @@ public class LoginPage extends SimplePanel {
 
                         public void onResponseReceived(Request request, Response response) {
                             show(false);
-                            ClientPage.getInstance().show(true);
+                            MainPanel.getInstance().show(true);
                         }
                     });
                 } catch (RequestException e) {

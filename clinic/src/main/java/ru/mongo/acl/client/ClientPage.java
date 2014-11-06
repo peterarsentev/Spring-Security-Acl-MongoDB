@@ -23,7 +23,7 @@ public class ClientPage extends SimplePanel {
     private ClientPage() {
         this.init();
         this.show(false);
-        RootPanel.get().add(this);
+        MainPanel.getInstance().setContent(this);
     }
 
     public void show(boolean enable) {
@@ -31,6 +31,7 @@ public class ClientPage extends SimplePanel {
     }
 
     public void init() {
+        grid.setStyleName("border");
         grid.setWidget(0, 0, new Label("login"));
         grid.setWidget(0, 1, new Label("pet"));
         RequestBuilder builder = new RequestBuilder(RequestBuilder.GET, "api/client/") {
@@ -52,7 +53,8 @@ public class ClientPage extends SimplePanel {
                         int row = grid.getRowCount();
                         grid.insertRow(row);
                         JSONObject value = array.get(i).isObject();
-                        grid.setWidget(row, 0, new Label(value.get("login").isString().stringValue()));
+                        String login = value.get("login").isString().stringValue();
+                        grid.setWidget(row, 0, new Label(login != null ? login : ""));
                         grid.setWidget(row, 1, new Label("0"));
                     }
                 }
