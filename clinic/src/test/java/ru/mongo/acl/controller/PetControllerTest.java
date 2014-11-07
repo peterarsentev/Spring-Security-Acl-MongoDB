@@ -2,7 +2,7 @@ package ru.mongo.acl.controller;
 
 import org.junit.Ignore;
 import org.junit.Test;
-import ru.mongo.acl.shared.models.Pet;
+import ru.mongo.acl.shared.models.PetDTO;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -16,7 +16,7 @@ public class PetControllerTest extends SpringTest {
     @Test
     public void create() throws Exception {
         mockMvc.perform(post("/pet/")
-                .content(convert2Byte(new Pet()))
+                .content(convert2Byte(new PetDTO()))
                 .contentType(APPLICATION_JSON_UTF8))
                 .andDo(print())
                 .andExpect(status().isOk());

@@ -9,9 +9,9 @@ public class MainPanel extends SimplePanel {
     private VerticalPanel control = new VerticalPanel();
     private SimplePanel content = new SimplePanel();
 
-    private Anchor showClients = new Anchor("Show clients");
-    private Anchor showPets = new Anchor("Show pets");
-    private Anchor showAcls = new Anchor("Show pets");
+    private Button showClients = new Button("Show clients");
+    private Button showPets = new Button("Show pets");
+    private Button showAcls = new Button("Show acls");
 
     private static final MainPanel INSTANCE = new MainPanel();
 
@@ -33,6 +33,9 @@ public class MainPanel extends SimplePanel {
         control.add(showClients);
         control.add(showPets);
         control.add(showAcls);
+        showClients.setWidth("100px");
+        showPets.setWidth("100px");
+        showAcls.setWidth("100px");
         showClients.addClickHandler(new ClickHandler() {
             @Override
             public void onClick(ClickEvent clickEvent) {

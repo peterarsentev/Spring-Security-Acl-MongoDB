@@ -9,19 +9,19 @@ import com.google.gwt.json.client.JSONObject;
 import com.google.gwt.json.client.JSONParser;
 import com.google.gwt.user.client.ui.*;
 import ru.mongo.acl.client.gialogs.ClientDialog;
-import ru.mongo.acl.client.gialogs.PetDialog;
 import ru.mongo.acl.shared.models.IClientDTO;
+import ru.mongo.acl.shared.models.PetDTO;
 
-public class ClientPage extends SimplePanel {
-    final Grid grid = new Grid(1, 3);
+public class PetPage extends SimplePanel {
+    final Grid grid = new Grid(1, 2);
 
-    private static final ClientPage INSTANCE = new ClientPage();
+    private static final PetPage INSTANCE = new PetPage();
 
-    public static ClientPage getInstance(){
+    public static PetPage getInstance(){
         return INSTANCE;
     }
 
-    private ClientPage() {
+    private PetPage() {
         this.init();
         this.show(false);
         MainPanel.getInstance().setContent(this);
@@ -36,10 +36,9 @@ public class ClientPage extends SimplePanel {
         grid.getColumnFormatter().setWidth(0, "150px");
         grid.getColumnFormatter().setWidth(1, "150px");
         grid.getRowFormatter().addStyleName(0, "header");
-        grid.setWidget(0, 0, new Label("Login"));
-        grid.setWidget(0, 1, new Label("Count pets"));
+        grid.setWidget(0, 0, new Label("Name"));
         grid.setWidget(0, 2, new Label("Action"));
-        RequestBuilder builder = new RequestBuilder(RequestBuilder.GET, "api/client/") {
+        RequestBuilder builder = new RequestBuilder(RequestBuilder.GET, "api/pet/") {
             @Override
             public Request sendRequest(String requestData, RequestCallback callback) throws RequestException {
                 return super.sendRequest(requestData, callback);
@@ -60,18 +59,11 @@ public class ClientPage extends SimplePanel {
                         JSONObject value = array.get(i).isObject();
                         String login = value.get("login").isString().stringValue();
                         grid.setWidget(row, 0, new Label(login != null ? login : ""));
-                        grid.setWidget(row, 1, new Label("0"));
                         HorizontalPanel actions = new HorizontalPanel();
                         actions.setSpacing(5);
-                        actions.add(buildBtn("+ new pet", new ClickHandler() {
-                            @Override
-                            public void onClick(ClickEvent clickEvent) {
-                                PetDialog.getInstance().show();
-                            }
-                        }));
                         actions.add(buildBtn("edit", clickHandler(null)));
                         actions.add(buildBtn("delete", clickHandler(null)));
-                        grid.setWidget(row, 2, actions);
+                        grid.setWidget(row, 1, actions);
                     }
                 }
             });
@@ -79,7 +71,7 @@ public class ClientPage extends SimplePanel {
             GWT.log("error");
         }
 
-        Button button = new Button("+ new client");
+        Button button = new Button("+ new pet");
         button.addClickHandler(new ClickHandler() {
             @Override
             public void onClick(ClickEvent clickEvent) {
@@ -98,12 +90,6 @@ public class ClientPage extends SimplePanel {
         grid.insertRow(row);
         grid.setWidget(row, 0, new Label(client.getLogin()));
         grid.setWidget(row, 1, new Label("0"));
-        HorizontalPanel actions = new HorizontalPanel();
-        actions.setSpacing(5);
-        actions.add(buildBtn("+ new pet", clickHandler(null)));
-        actions.add(buildBtn("edit", clickHandler(null)));
-        actions.add(buildBtn("delete", clickHandler(null)));
-        grid.setWidget(row, 2, actions);
     }
 
     public Button buildBtn(String label, ClickHandler handler) {

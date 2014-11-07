@@ -2,11 +2,14 @@ package ru.mongo.acl.server.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.mongo.acl.server.models.Client;
-import ru.mongo.acl.shared.models.Pet;
+import ru.mongo.acl.server.models.Pet;
+import ru.mongo.acl.server.repositories.ClientRepository;
 import ru.mongo.acl.server.repositories.PetRepository;
+import ru.mongo.acl.shared.models.IPetDTO;
 
 import java.util.List;
 
@@ -19,20 +22,22 @@ public class PetController implements IPetController {
     @Autowired
     private PetRepository petRepository;
 
-    public Pet create(Pet pet) {
+    @Autowired
+    private ClientRepository clientRepository;
+
+    public Pet create(@RequestBody Pet pet) {
+        this.petRepository.save(pet);
+        Client client = this.clientRepository.findOne(pet.getClientId());
+        client.getPets().add(pet);
+        return pet;
+    }
+
+    public Pet update(@RequestBody Pet pet) {
         return this.petRepository.save(pet);
     }
 
-    public Pet update(Pet pet) {
-        return this.petRepository.save(pet);
-    }
-
-    public void delete(Pet pet) {
+    public void delete(@RequestBody Pet pet) {
         this.petRepository.delete(pet);
-    }
-
-    public List<Pet> getByOwner(@PathVariable String clientId) {
-        return this.petRepository.findByOwner(new Client(clientId));
     }
 
     public Pet geById(@PathVariable String id) {

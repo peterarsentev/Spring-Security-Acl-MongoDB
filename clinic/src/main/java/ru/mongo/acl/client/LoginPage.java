@@ -41,7 +41,7 @@ public class LoginPage extends SimplePanel {
 
     private void init() {
         FlexTable layout = new FlexTable();
-        layout.setCellSpacing(6);
+        layout.setCellSpacing(5);
         FlexTable.FlexCellFormatter cellFormatter = layout.getFlexCellFormatter();
 
         layout.setHTML(0, 0, constants.cwDecoratorPanelFormTitle());

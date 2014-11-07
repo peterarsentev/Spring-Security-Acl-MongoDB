@@ -1,6 +1,9 @@
 package ru.mongo.acl.shared.models;
 
-public interface IClientDTO {
+import java.io.Serializable;
+import java.util.List;
+
+public interface IClientDTO extends Serializable {
     String getId();
 
     void setId(String id);
@@ -8,4 +11,8 @@ public interface IClientDTO {
     String getLogin();
 
     void setLogin(String login);
+
+    List<IPetDTO> getPets();
+
+    void setPets(List<IPetDTO> pets);
 }

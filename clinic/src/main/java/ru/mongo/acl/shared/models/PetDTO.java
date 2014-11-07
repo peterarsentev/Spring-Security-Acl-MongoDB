@@ -4,32 +4,27 @@ import org.springframework.acl.mongodb.models.Base;
 import org.springframework.data.mongodb.core.mapping.Document;
 import ru.mongo.acl.server.models.Client;
 
-@Document(collection = "pet")
-public class Pet extends Base {
+public class PetDTO implements IPetDTO {
+    private String clientId;
     private String name;
-    private Client owner;
 
-    public Pet() {
-
+    public PetDTO() {
     }
 
-    public Pet(String id) {
-        this.setId(id);
+    public String getClientId() {
+        return clientId;
     }
 
-
-    public Client getOwner() {
-        return owner;
+    public void setClientId(String clientId) {
+        this.clientId = clientId;
     }
 
-    public void setOwner(Client owner) {
-        this.owner = owner;
-    }
-
+    @Override
     public String getName() {
         return name;
     }
 
+    @Override
     public void setName(String name) {
         this.name = name;
     }
