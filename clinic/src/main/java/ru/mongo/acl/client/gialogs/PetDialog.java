@@ -8,10 +8,6 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.TextBox;
-import ru.mongo.acl.client.ClientPage;
-import ru.mongo.acl.shared.models.ClientDTO;
-import ru.mongo.acl.shared.models.IClientDTO;
-import ru.mongo.acl.shared.models.IPetDTO;
 import ru.mongo.acl.shared.models.PetDTO;
 
 import static ru.mongo.acl.shared.utils.JsonConverter.serializeToJson;
@@ -20,7 +16,7 @@ public class PetDialog extends DialogBox {
 
     private static final PetDialog INSTANCE = new PetDialog();
 
-    private PetDTO petDTO;
+    private String clientId;
 
     public static PetDialog getInstance(){
         return INSTANCE;
@@ -38,8 +34,9 @@ public class PetDialog extends DialogBox {
         submit.addClickHandler(new ClickHandler() {
             @Override
             public void onClick(ClickEvent clickEvent) {
+                PetDTO petDTO = new PetDTO();
                 petDTO.setName(name.getText());
-
+                petDTO.setClientId(clientId);
                 RequestBuilder builder = new RequestBuilder(RequestBuilder.POST, "api/pet/");
                 builder.setHeader("Content-Type", "application/json");
                 try {
@@ -73,5 +70,10 @@ public class PetDialog extends DialogBox {
         layout.setWidget(1, 1, cancel);
         this.add(layout);
         this.center();
+    }
+
+    public void show(String clientId) {
+        this.clientId = clientId;
+        this.show();
     }
 }

@@ -11,6 +11,9 @@ import com.google.gwt.user.client.ui.*;
 import ru.mongo.acl.client.gialogs.ClientDialog;
 import ru.mongo.acl.client.gialogs.PetDialog;
 import ru.mongo.acl.shared.models.IClientDTO;
+import ru.mongo.acl.shared.models.IPetDTO;
+
+import static ru.mongo.acl.shared.utils.JsonConverter.deserializeFromJson;
 
 public class ClientPage extends SimplePanel {
     final Grid grid = new Grid(1, 3);
@@ -37,7 +40,7 @@ public class ClientPage extends SimplePanel {
         grid.getColumnFormatter().setWidth(1, "150px");
         grid.getRowFormatter().addStyleName(0, "header");
         grid.setWidget(0, 0, new Label("Login"));
-        grid.setWidget(0, 1, new Label("Count pets"));
+        grid.setWidget(0, 1, new Label("Pets"));
         grid.setWidget(0, 2, new Label("Action"));
         RequestBuilder builder = new RequestBuilder(RequestBuilder.GET, "api/client/") {
             @Override
@@ -55,23 +58,8 @@ public class ClientPage extends SimplePanel {
                 public void onResponseReceived(Request request, Response response) {
                     JSONArray array = JSONParser.parseStrict(response.getText()).isArray();
                     for (int i = 0; i != array.size(); i++) {
-                        int row = grid.getRowCount();
-                        grid.insertRow(row);
                         JSONObject value = array.get(i).isObject();
-                        String login = value.get("login").isString().stringValue();
-                        grid.setWidget(row, 0, new Label(login != null ? login : ""));
-                        grid.setWidget(row, 1, new Label("0"));
-                        HorizontalPanel actions = new HorizontalPanel();
-                        actions.setSpacing(5);
-                        actions.add(buildBtn("+ new pet", new ClickHandler() {
-                            @Override
-                            public void onClick(ClickEvent clickEvent) {
-                                PetDialog.getInstance().show();
-                            }
-                        }));
-                        actions.add(buildBtn("edit", clickHandler(null)));
-                        actions.add(buildBtn("delete", clickHandler(null)));
-                        grid.setWidget(row, 2, actions);
+                        addClient(deserializeFromJson(value.toString()));
                     }
                 }
             });
@@ -93,14 +81,23 @@ public class ClientPage extends SimplePanel {
         this.add(verticalPanel);
     }
 
-    public void addClient(IClientDTO client) {
+    public void addClient(final IClientDTO client) {
         int row = grid.getRowCount();
         grid.insertRow(row);
         grid.setWidget(row, 0, new Label(client.getLogin()));
-        grid.setWidget(row, 1, new Label("0"));
+        String html = "";
+        for (IPetDTO pet : client.getPets()) {
+            html += "<div>" + pet.getName() + "</div>";
+        }
+        grid.setWidget(row, 1, new HTML(html));
         HorizontalPanel actions = new HorizontalPanel();
         actions.setSpacing(5);
-        actions.add(buildBtn("+ new pet", clickHandler(null)));
+        actions.add(buildBtn("+ new pet", new ClickHandler() {
+            @Override
+            public void onClick(ClickEvent clickEvent) {
+                PetDialog.getInstance().show(client.getId());
+            }
+        }));
         actions.add(buildBtn("edit", clickHandler(null)));
         actions.add(buildBtn("delete", clickHandler(null)));
         grid.setWidget(row, 2, actions);

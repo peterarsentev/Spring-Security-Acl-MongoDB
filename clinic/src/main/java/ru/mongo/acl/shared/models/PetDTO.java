@@ -1,9 +1,5 @@
 package ru.mongo.acl.shared.models;
 
-import org.springframework.acl.mongodb.models.Base;
-import org.springframework.data.mongodb.core.mapping.Document;
-import ru.mongo.acl.server.models.Client;
-
 public class PetDTO implements IPetDTO {
     private String clientId;
     private String name;

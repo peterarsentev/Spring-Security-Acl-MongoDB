@@ -29,6 +29,7 @@ public class PetController implements IPetController {
         this.petRepository.save(pet);
         Client client = this.clientRepository.findOne(pet.getClientId());
         client.getPets().add(pet);
+        this.clientRepository.save(client);
         return pet;
     }
 
