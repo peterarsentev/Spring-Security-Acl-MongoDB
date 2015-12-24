@@ -1,4 +1,4 @@
-package ru.mongo.acl.server.models;
+package ru.mongo.acl.models;
 
 import org.springframework.acl.mongodb.models.Base;
 import org.springframework.data.mongodb.core.mapping.DBRef;
@@ -9,6 +9,8 @@ import java.util.List;
 public class Client extends Base {
 
     private String login;
+
+	private String password;
 
     @DBRef
     private List<Pet> pets = new ArrayList<>();
@@ -35,7 +37,16 @@ public class Client extends Base {
         this.pets = pets;
     }
 
-    @Override
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	@Override
     public String toString() {
         return "Client{" +
                 "login='" + login + '\'' +

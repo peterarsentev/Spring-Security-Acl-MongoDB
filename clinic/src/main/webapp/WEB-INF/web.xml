@@ -66,8 +66,4 @@
         </cookie-config>
     </session-config>
 
-    <welcome-file-list>
-        <welcome-file>action.html</welcome-file>
-    </welcome-file-list>
-
 </web-app>

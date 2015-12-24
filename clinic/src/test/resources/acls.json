@@ -1,0 +1,26 @@
+[
+  {
+    "id" : "1",
+    "name" : "admin acl",
+    "keys" : ["admin"],
+    "entityClasses" : [
+      {
+        "className" : "ru.mongo.acl.models.Client",
+        "canCreate" : "true",
+        "canRead" : "true",
+        "canUpdate" : "true",
+        "canDelete" : "true"
+      }
+    ],
+    "entityInstances" : [
+      {
+        "className" : "ru.mongo.acl.models.Client",
+        "instanceId" : "3",
+        "canCreate" : "true",
+        "canRead" : "true",
+        "canUpdate" : "true",
+        "canDelete" : "true"
+      }
+    ]
+  }
+]

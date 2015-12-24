@@ -53,7 +53,7 @@
         <beans:constructor-arg ref="mongoTemplate"/>
     </beans:bean>
 
-    <mongo:repositories base-package="ru.mongo.acl.server.repositories" />
+    <mongo:repositories base-package="ru.mongo.acl.repositories" />
 
     <context:component-scan base-package="ru.mongo.acl" />
 

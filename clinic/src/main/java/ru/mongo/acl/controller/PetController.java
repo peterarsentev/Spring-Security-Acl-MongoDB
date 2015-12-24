@@ -1,15 +1,14 @@
-package ru.mongo.acl.server.controller;
+package ru.mongo.acl.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ru.mongo.acl.server.models.Client;
-import ru.mongo.acl.server.models.Pet;
-import ru.mongo.acl.server.repositories.ClientRepository;
-import ru.mongo.acl.server.repositories.PetRepository;
-import ru.mongo.acl.shared.models.IPetDTO;
+import ru.mongo.acl.models.Client;
+import ru.mongo.acl.models.Pet;
+import ru.mongo.acl.repositories.ClientRepository;
+import ru.mongo.acl.repositories.PetRepository;
 
 import java.util.List;
 

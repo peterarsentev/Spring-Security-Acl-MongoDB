@@ -1,11 +1,12 @@
-package ru.mongo.acl.shared.models;
+package ru.mongo.acl.models;
 
-public class PetDTO implements IPetDTO {
+import org.springframework.acl.mongodb.models.Base;
+
+public class Pet extends Base {
+
     private String clientId;
-    private String name;
 
-    public PetDTO() {
-    }
+    private String name;
 
     public String getClientId() {
         return clientId;
@@ -15,14 +16,11 @@ public class PetDTO implements IPetDTO {
         this.clientId = clientId;
     }
 
-    @Override
     public String getName() {
         return name;
     }
 
-    @Override
     public void setName(String name) {
         this.name = name;
     }
-
 }

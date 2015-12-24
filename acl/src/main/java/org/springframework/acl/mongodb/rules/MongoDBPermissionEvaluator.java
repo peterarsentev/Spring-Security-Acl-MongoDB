@@ -26,9 +26,9 @@ public class MongoDBPermissionEvaluator implements PermissionEvaluator {
     @SuppressWarnings("unchecked")
     @Override
     public boolean hasPermission(Authentication authentication, Object target, Object permission) {
-        String key = (String) permission;
-        IRule rule = this.rules.get(key);
-        return true; //rule != null && rule.process(this.template, authentication.getName(), (Base) target);
+        final String key = (String) permission;
+        final IRule rule = this.rules.get(key);
+        return rule != null && rule.process(this.template, authentication.getName(), (Base) target);
     }
 
     @Override

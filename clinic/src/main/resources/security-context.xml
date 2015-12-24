@@ -45,4 +45,15 @@
         </authentication-provider>
     </authentication-manager>
 
+	<!--<beans:bean id="preauthAuthProvider"-->
+	      <!--class="org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationProvider">-->
+		<!--<beans:property name="preAuthenticatedUserDetailsService">-->
+			<!--<beans:bean id="userDetailsServiceWrapper"-->
+			      <!--class="org.springframework.security.core.userdetails.UserDetailsByNameServiceWrapper">-->
+				<!--<beans:property name="userDetailsService" ref="userDetailsService"/>-->
+			<!--</beans:bean>-->
+		<!--</beans:property>-->
+	<!--</beans:bean>-->
+
+
 </beans:beans>

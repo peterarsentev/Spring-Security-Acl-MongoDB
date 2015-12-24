@@ -1,4 +1,4 @@
-package ru.mongo.acl.server.controller;
+package ru.mongo.acl.controller;
 
 import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PostFilter;

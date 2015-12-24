@@ -1,12 +1,12 @@
-package ru.mongo.acl.server.controller;
+package ru.mongo.acl.controller;
 
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ru.mongo.acl.server.repositories.ClientRepository;
-import ru.mongo.acl.server.models.Client;
+import ru.mongo.acl.repositories.ClientRepository;
+import ru.mongo.acl.models.Client;
 
 import java.util.List;
 
