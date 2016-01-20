@@ -1,6 +1,8 @@
 Spring Security ACL MongoDB
 ==================
 
+http://www.youtube.com/watch?v=x0UE5THrSZM 
+
 This project implements the ACL mechanism. It uses the MongoDB as persistent storage.
 The project has the two modules :
 
