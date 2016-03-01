@@ -18,7 +18,7 @@ import static org.apache.commons.collections.IteratorUtils.toList;
 @RequestMapping(value = "/pet")
 public class PetController implements IPetController {
 
-    @Autowired
+//    @Autowired
     private PetRepository petRepository;
 
     @Autowired

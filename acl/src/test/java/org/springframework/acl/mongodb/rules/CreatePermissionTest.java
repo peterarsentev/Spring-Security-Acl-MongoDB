@@ -48,11 +48,12 @@ public class CreatePermissionTest {
 
         template.save(acl);
 
+	    final MongoRuleChecker checker = new MongoRuleChecker();
 
-        assertTrue(new CreatePermission().process(template, "admin", new ProtectedModel()));
-        assertTrue(new ReadPermission().process(template, "admin", new ProtectedModel("1")));
-        assertTrue(new ReadPermission().process(template, "admin", new ReadableModel("1")));
-        assertFalse(new UpdatePermission().process(template, "admin", new ReadableModel("1")));
+        assertTrue(new CreatePermission(checker).process(template, "admin", new ProtectedModel(), "canCreate"));
+        assertTrue(new ReadPermission(checker).process(template, "admin", new ProtectedModel("1"), "canRead"));
+        assertTrue(new ReadPermission(checker).process(template, "admin", new ReadableModel("1"), "canRead"));
+        assertFalse(new UpdatePermission(checker).process(template, "admin", new ReadableModel("1"), "canUpdate"));
     }
 
     private <T extends CRUDBase> T build(T entity, Class cl, boolean create, boolean read, boolean update, boolean delete) {

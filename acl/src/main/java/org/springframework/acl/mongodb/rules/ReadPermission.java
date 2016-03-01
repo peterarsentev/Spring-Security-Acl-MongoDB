@@ -1,14 +1,20 @@
 package org.springframework.acl.mongodb.rules;
 
-public class ReadPermission extends CRUDRule implements IRule {
+import org.springframework.data.mongodb.core.MongoTemplate;
 
-    @Override
+public class ReadPermission<T> extends BasePermission<T> implements IRule<T> {
+
+	public ReadPermission(IChecker<T> checker) {
+		super(checker);
+	}
+
+	@Override
     public String getKey() {
         return "read";
     }
 
     @Override
-    Can getCanField() {
+    public Can getCanField() {
         return Can.READ;
     }
 }

@@ -9,14 +9,14 @@ import org.springframework.security.core.Authentication;
 import java.io.Serializable;
 import java.util.*;
 
-public class MongoDBPermissionEvaluator implements PermissionEvaluator {
-    private static final Logger LOGGER = org.slf4j.LoggerFactory.getLogger(MongoDBPermissionEvaluator.class);
+public class AclPermissionEvaluator<T> implements PermissionEvaluator {
+    private static final Logger LOGGER = org.slf4j.LoggerFactory.getLogger(AclPermissionEvaluator.class);
 
-    private final MongoTemplate template;
+    private final T template;
 
-    private Map<String, IRule> rules = new LinkedHashMap<String, IRule>();
+    private Map<String, IRule<T>> rules = new LinkedHashMap<String, IRule<T>>();
 
-    public MongoDBPermissionEvaluator(MongoTemplate template, Collection<IRule> rules) {
+    public AclPermissionEvaluator(T template, Collection<IRule<T>> rules) {
         this.template = template;
         for (IRule rule : rules) {
             this.rules.put(rule.getKey(), rule);
@@ -28,7 +28,7 @@ public class MongoDBPermissionEvaluator implements PermissionEvaluator {
     public boolean hasPermission(Authentication authentication, Object target, Object permission) {
         final String key = (String) permission;
         final IRule rule = this.rules.get(key);
-        return rule != null && rule.process(this.template, authentication.getName(), (Base) target);
+        return rule != null && rule.process(this.template, authentication.getName(), (Base) target, rule.getCanField().getKey());
     }
 
     @Override

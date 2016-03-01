@@ -3,15 +3,8 @@ package org.springframework.acl.mongodb.rules;
 import org.springframework.acl.mongodb.models.Base;
 import org.springframework.data.mongodb.core.MongoTemplate;
 
-public interface IRule {
-    String QUERY_TEMPLATE_INSTANCE = "{keys : {$in : ['%s']}, " +
-            "entityClasses : {$elemMatch : {className : '%s', '%s' : true}}," +
-            "entityInstances : {$elemMatch : {className : '%s', %s : true, instanceId : '%s'}}}";
-
-    String QUERY_TEMPLATE_CLASS = "{keys : {$in : ['%s']}, " +
-            "entityClasses : {$elemMatch :{className : '%s', %s : true}}}";
-
-    public enum Can {
+public interface IRule<T> extends IChecker<T> {
+	enum Can {
         CREATE("canCreate"),
         UPDATE("canUpdate"),
         READ("canRead"),
@@ -30,5 +23,5 @@ public interface IRule {
 
     String getKey();
 
-    boolean process(MongoTemplate template, String aclKey, Base base);
+	Can getCanField();
 }

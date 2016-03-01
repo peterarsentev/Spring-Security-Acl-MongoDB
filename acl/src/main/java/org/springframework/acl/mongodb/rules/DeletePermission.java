@@ -1,14 +1,20 @@
 package org.springframework.acl.mongodb.rules;
 
-public class DeletePermission extends CRUDRule implements IRule {
+import org.springframework.data.mongodb.core.MongoTemplate;
 
-    @Override
+public class DeletePermission<T> extends BasePermission<T> implements IRule<T> {
+
+	public DeletePermission(IChecker<T> checker) {
+		super(checker);
+	}
+
+	@Override
     public String getKey() {
         return "delete";
     }
 
     @Override
-    Can getCanField() {
+    public Can getCanField() {
         return Can.DELETE;
     }
 }

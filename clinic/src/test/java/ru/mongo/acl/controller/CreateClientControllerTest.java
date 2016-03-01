@@ -2,23 +2,26 @@ package ru.mongo.acl.controller;
 
 import org.junit.Test;
 import org.springframework.test.context.ContextConfiguration;
+import ru.mongo.acl.models.Client;
+import ru.mongo.acl.models.Pet;
 
-import static org.junit.Assert.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static ru.mongo.acl.controller.JsonUtil.convert2Byte;
 
 /**
  * TODO: comment
  * @author parsentev
  * @since 24.12.2015
  */
-@ContextConfiguration(locations = {"classpath:sql/security-context.xml", "classpath:sql/servlet-context.xml"})
-public class ClientControllerTest extends SpringTest {
+@ContextConfiguration(locations = {"classpath:sql/servlet-context.xml", "classpath:sql/security-context.xml"})
+public class CreateClientControllerTest extends SpringTest {
 
 	@Override
 	String getLogin() {
-		return "admin";
+		return "user";
 	}
 
 	@Override
@@ -27,10 +30,11 @@ public class ClientControllerTest extends SpringTest {
 	}
 
 	@Test
-	public void testGetAll() throws Exception {
-		mockMvc.perform(get("/client/")
+	public void create() throws Exception {
+		mockMvc.perform(post("/client/")
+				.content(convert2Byte(new Client()))
 				.contentType(APPLICATION_JSON_UTF8))
 				.andDo(print())
-				.andExpect(status().isOk());
+				.andExpect(status().isForbidden());
 	}
 }
