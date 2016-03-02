@@ -7,26 +7,13 @@ import org.springframework.data.mongodb.core.query.Query;
 
 import java.util.List;
 
-public class AclManager {
-    private final MongoTemplate template;
+public interface AclManager {
 
-    public AclManager(MongoTemplate template) {
-        this.template = template;
-    }
+	 void save(Acl acl);
 
-	public void save(Acl acl) {
-		this.template.save(acl);
-	}
+	 void save(List<Acl> it);
 
-	public void save(List<Acl> it) {
-		this.template.insert(it, Acl.class);
-	}
+	 List<Acl> findAll();
 
-	public List<Acl> findAll() {
-		return this.template.findAll(Acl.class);
-	}
-
-	public void delete(String id) {
-		this.template.findAndRemove(new Query().addCriteria(new Criteria("id").is(id)), Acl.class);
-	}
+	 void delete(String id);
 }

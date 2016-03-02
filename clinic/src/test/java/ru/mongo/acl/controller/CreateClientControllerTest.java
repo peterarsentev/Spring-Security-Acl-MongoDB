@@ -5,6 +5,7 @@ import org.springframework.test.context.ContextConfiguration;
 import ru.mongo.acl.models.Client;
 import ru.mongo.acl.models.Pet;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -16,7 +17,7 @@ import static ru.mongo.acl.controller.JsonUtil.convert2Byte;
  * @author parsentev
  * @since 24.12.2015
  */
-@ContextConfiguration(locations = {"classpath:sql/servlet-context.xml", "classpath:sql/security-context.xml"})
+@ContextConfiguration(locations = { "classpath:security-context.xml", "classpath:sql/servlet-context.xml"})
 public class CreateClientControllerTest extends SpringTest {
 
 	@Override
@@ -30,8 +31,17 @@ public class CreateClientControllerTest extends SpringTest {
 	}
 
 	@Test
-	public void create() throws Exception {
+	public void createClient() throws Exception {
 		mockMvc.perform(post("/client/")
+				.content(convert2Byte(new Client()))
+				.contentType(APPLICATION_JSON_UTF8))
+				.andDo(print())
+				.andExpect(status().isForbidden());
+	}
+
+	@Test
+	public void deleteClient() throws Exception {
+		mockMvc.perform(delete("/client/")
 				.content(convert2Byte(new Client()))
 				.contentType(APPLICATION_JSON_UTF8))
 				.andDo(print())

@@ -22,17 +22,19 @@ public class ClientController implements ICRUDController<Client> {
     @Autowired
     private ClientRepository clientRepository;
 
+	@PreAuthorize("hasPermission(#client, 'create')")
     @Override
-    @PreAuthorize("hasPermission(#client, 'create')")
     public Client create(@RequestBody Client client) {
        return this.clientRepository.save(client);
     }
 
+	@PreAuthorize("hasPermission(#client, 'update')")
     @Override
     public Client update(@RequestBody Client client) {
         return this.clientRepository.save(client);
     }
 
+	@PreAuthorize("hasPermission(#client, 'delete')")
     @Override
     public void delete(@RequestBody Client client) {
         this.clientRepository.delete(client);

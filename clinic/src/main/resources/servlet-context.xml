@@ -45,13 +45,16 @@
     <mongo:mongo host="127.0.0.1" port="27017" />
     <mongo:db-factory id="mongoDbFactory" dbname="mongo_acl" />
 
-    <beans:bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
+    <beans:bean id="template" class="org.springframework.data.mongodb.core.MongoTemplate">
         <beans:constructor-arg name="mongoDbFactory" ref="mongoDbFactory" />
     </beans:bean>
 
-    <beans:bean class="org.springframework.acl.mongodb.services.AclManager">
-        <beans:constructor-arg ref="mongoTemplate"/>
+    <beans:bean class="org.springframework.acl.mongodb.services.MongoStorage">
+        <beans:constructor-arg ref="template"/>
     </beans:bean>
+
+	<beans:bean id="checker" class="org.springframework.acl.mongodb.rules.SQLRuleChecker">
+	</beans:bean>
 
     <mongo:repositories base-package="ru.mongo.acl.repositories" />
 
